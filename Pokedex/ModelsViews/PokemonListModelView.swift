@@ -18,8 +18,6 @@ class PokemonListModelView: ObservableObject{
         Task {
             let (data, _) = try await URLSession.shared.data(from: URL(string: url)!)
             let decodedResponse = try? JSONDecoder().decode(pokemonListStruct.self, from: data)
-            print("data decpded")
-            debugPrint(decodedResponse)
             self.pokemonList = decodedResponse
         }
     }
