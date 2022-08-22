@@ -7,10 +7,25 @@
 
 import SwiftUI
 
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+            
+            ZStack(alignment: alignment) {
+                placeholder().opacity(shouldShow ? 1 : 0)
+                self
+            }
+        }
+}
+
 struct PokemonList: View {
     @State var pokemonSearched:String = ""
     
     @StateObject var pokemonListObject: PokemonListModelView = PokemonListModelView()
+    @State var navigateToPokemonView:Bool = false
+    @State var url: String = ""
     
     var body: some View {
         ZStack(alignment:.top){
@@ -19,7 +34,14 @@ struct PokemonList: View {
             VStack{
                 Image("pokemonLogo").resizable().frame(width: 200, height: 80)
                 HStack{
-                    TextField("Busqueda", text: $pokemonSearched).padding().frame( height: 50).background(Color("myblue")).cornerRadius(10)
+                    TextField("", text: $pokemonSearched)
+                        .font(.system(size: 16, weight: .bold, design: .default))
+                        .padding()
+                        .frame( height: 50)
+                        .placeholder(when: pokemonSearched.isEmpty) {
+                            Text("Busca a tu Pokemon").foregroundColor(Color("goldColor")).fontWeight(.bold).font(.body).padding(.horizontal)
+                        }
+                        .background(Color("myblue")).cornerRadius(10)
                     Button(action: {
                         print("buscando... \(pokemonSearched)")
                     }, label: {
@@ -37,6 +59,8 @@ struct PokemonList: View {
                         ForEach(pokemonListObject.pokemonList!.results, id:\.self){pokemonResult in
                             Button(action: {
                                 print(pokemonResult)
+                                self.url = pokemonResult.url
+                                self.navigateToPokemonView=true
                             }, label: {
                                 VStack {
                                     Text(pokemonResult.name)
@@ -75,6 +99,15 @@ struct PokemonList: View {
             }.foregroundColor(Color("goldColor"))
                 .padding(.top, 60)
                 .padding(.horizontal, 20)
+            
+            NavigationLink(
+                destination: PokemonView(url: self.url),
+                isActive: $navigateToPokemonView,
+                label: {
+                    EmptyView()
+                }
+            )
+            
         }.ignoresSafeArea()
         
     }
