@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Imagen 2-PhotoRoom.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

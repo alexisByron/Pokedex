@@ -42,6 +42,8 @@ struct PokemonList: View {
         ZStack(alignment:.top){
             Color(.gray).opacity(0.7)
             
+                .navigationBarHidden(true)
+            
             VStack{
                 Image("pokemonLogo").resizable().frame(width: 200, height: 80)
                 HStack{
