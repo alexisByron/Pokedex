@@ -11,7 +11,7 @@ struct PresentationPage: View {
     @State var navigateToPokemonList:Bool = false
     
     func shareButton() {
-        let activityController = UIActivityViewController(activityItems: ["https://www.linkedin.com/in/alexis-moya-yanquis-713455167/"], applicationActivities: nil)
+        let activityController = UIActivityViewController(activityItems: ["https://www.linkedin.com/in/alexis-moya-yanquis-713455167"], applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController!.present(activityController, animated: true, completion: nil)
     }
     

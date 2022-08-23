@@ -24,7 +24,7 @@ struct PokemonView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State var isFavorite:Bool = false
-    let showAlert: Bool = false
+    @State var showAlert: Bool = false
     
     func isPokemonFavorite()->Bool{
         let arrayAux = pokemonListObject.favoritePokemons.filter{ $0.id == pokemonModel.pokemon?.id}
@@ -35,6 +35,13 @@ struct PokemonView: View {
         let activityController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         UIApplication.shared.windows.first?.rootViewController!.present(activityController, animated: true, completion: nil)
     }
+    
+    private func passValueAlertAfterOneSecond() async {
+        // Delay of 7.5 seconds (1 second = 1_000_000_000 nanoseconds)
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
+        self.showAlert = pokemonModel.error.isShowin
+    }
+    
     
     var body: some View {
         ZStack(alignment: .top){
@@ -161,14 +168,7 @@ struct PokemonView: View {
                 ).background(Color("goldColor"))
                     .cornerRadius(30).padding(.top,100)
             }.padding(.top,90)
-                .alert("\(pokemonModel.error.message)", isPresented: $pokemonModel.error.isShowin) {
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Text("Reintentar")
-                    })
-                }
-            
+             
             //imagen superpuesta
             TabView {
                 //imagen 1
@@ -207,7 +207,8 @@ struct PokemonView: View {
             //custom button back
             VStack(){
                 Button(action: {
-                    self.pokemonModel.pokemon = nil
+                    self.showAlert = false
+                    self.pokemonModel.reset()
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Image(systemName: "arrow.left")
@@ -217,9 +218,18 @@ struct PokemonView: View {
                 })
             }.padding(.horizontal).frame(maxWidth: .infinity, alignment: .leading).padding(.top, 50)
             
-        }.onAppear(perform: {
-            pokemonModel.getPokemon(url: url)
+        }.task(passValueAlertAfterOneSecond).onAppear(perform: {
+           pokemonModel.getPokemon(url: url)
         }).ignoresSafeArea().animation(.linear(duration: 0.7))
+            .alert("\(pokemonModel.error.message)", isPresented: $showAlert) {
+                Button(action: {
+                    self.showAlert = false
+                    self.pokemonModel.reset()
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("Reintentar")
+                })
+            }
         
     }
 }

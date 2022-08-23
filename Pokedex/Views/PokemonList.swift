@@ -41,9 +41,7 @@ struct PokemonList: View {
     var body: some View {
         ZStack(alignment:.top){
             Color(.gray).opacity(0.7)
-            
                 .navigationBarHidden(true)
-            
             VStack{
                 Image("pokemonLogo").resizable().frame(width: 200, height: 80)
                 HStack{
@@ -61,6 +59,7 @@ struct PokemonList: View {
                     Button(action: {
                         if (!pokemonSearched.isEmpty){
                             let urlAux = "https://pokeapi.co/api/v2/pokemon/\(pokemonSearched.lowercased())"
+                            pokemonModel.reset()
                             self.url = urlAux
                             self.navigateToPokemonView.toggle()
                             self.pokemonSearched = ""

@@ -43,5 +43,10 @@ class PokemonModel: ObservableObject{
             }
         }
     }
+    
+    func reset(){
+        self.pokemon = nil
+        self.error = Error(isShowin: false, message: "")
+    }
 
 }
