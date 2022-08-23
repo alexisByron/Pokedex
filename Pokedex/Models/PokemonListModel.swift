@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct pokemonListStruct: Hashable, Decodable{
+struct pokemonListStruct:  Decodable{
     var count: Int
     var next: String?
     var previous: String?
     var results: Array<pokemonResults>
 }
 
-struct pokemonResults: Hashable, Decodable{
+struct pokemonResults:  Decodable{
     var name: String
     var url: String
 }
