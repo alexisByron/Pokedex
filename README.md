@@ -1,6 +1,6 @@
 # Proyecto Pokedex
  
-Tecnologias utilizadas
+Tecnologías utilizadas
 
  <img src="https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white" style="max-width: 100%;">
  Api pokemon : https://pokeapi.co/
