@@ -13,3 +13,7 @@ Tecnologías utilizadas
  ## Demo
  
  ![video (2)](https://user-images.githubusercontent.com/72414242/186255727-f1065803-b03e-45ac-8be0-925638697382.gif)
+ 
+ ## Instrucciones para levantar app
+  - Tener xcode instalado
+  - Correr app desde xcode en un simulador
