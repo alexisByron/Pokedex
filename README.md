@@ -15,6 +15,4 @@ Api pokemon : https://pokeapi.co/
 - Correr app desde xcode en un simulador
 
 ## Demo
-![video (2)](https://user-images.githubusercontent.com/72414242/186255727-f1065803-b03e-45ac-8be0-925638697382.gif)
- 
-
+![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/72414242/222282827-3dd60d25-8f6c-4135-900c-ce52eabf55d8.gif)
